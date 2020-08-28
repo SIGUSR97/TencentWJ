@@ -2,6 +2,13 @@
   <div
     class="wrapper"
     :style="{backgroundImage: `url(${this.background})`}"
+    @mousedown="handleMouseDown"
+    @mousemove="handleMouseMove"
+    @mouseup="handleMouseUp"
+    @touchstart="handleMouseDown"
+    @touchmove="handleMouseMove"
+    @touchend="handleMouseUp"
+    @touchcancel="handleMouseUp"
   >
     <div
       v-for="[idx, slide] in slides.entries()"
@@ -14,14 +21,17 @@
       <h3>
         {{ slide.subtitle }}
       </h3>
-      <img :src="slide.image" alt="" />
+      <img :src="slide.image" draggable="false" />
     </div>
     <div class="slider-controls">
       <div class="slider-controls-direction">
         <div class="prev"></div>
         <div class="next"></div>
       </div>
-      <div class="slider-controls-pager">
+      <div
+        class="slider-controls-pager"
+        @click="handleStopPropagation"
+      >
         <div
           v-for="idx in slides.keys()"
           :key="idx"
@@ -48,26 +58,103 @@ export default {
     slides: {
       type: Array,
     },
+    delay: {
+      type: Number,
+      default: 10000,
+    },
   },
   data() {
     return {
       selectedIdx: 0,
+      autoNextSlideId: null,
     };
   },
-  methods: {},
+  methods: {
+    handleMouseDown(e) {
+      if (e.changedTouches) e.clientX = e.changedTouches[0].pageX;
+      this.startX = e.clientX;
+      const el = $(this.$el).children()[0];
+      const style = el.currentStyle || window.getComputedStyle(el);
+      this.startMarginLeft = style.marginLeft;
+      this.mouseMoveStarted = true;
+    },
+    handleMouseMove(e) {
+      if (this.mouseMoveStarted) {
+        if (e.changedTouches) e.clientX = e.changedTouches[0].pageX;
+        const deltaX = e.clientX - this.startX;
+        const el = $(this.$el).children()[0];
+        el.style.transition = 'none';
+        el.style.marginLeft = `${Number.parseInt(
+          this.startMarginLeft,
+          10,
+        ) + deltaX}px`;
+      }
+    },
+
+    handleMouseUp() {
+      $(this.$el).children()[0].style.transition = null;
+      this.mouseMoveStarted = false;
+      const el = $(this.$el).children()[0];
+      const style = el.currentStyle || window.getComputedStyle(el);
+      const marginLeft = Number.parseInt(style.marginLeft, 10);
+      const width = $(this.$el).width();
+      const margins = [...this.slides.keys()].map((i) => i * -width);
+      // console.log(margins.map((m) => m - marginLeft));
+      const [, index] = margins
+        .map((m) => m - marginLeft)
+        .reduce(
+          (prev, cur, idx) => {
+            // eslint-disable-next-line comma-spacing
+            const [pval, ,] = prev;
+            if (Math.abs(cur) < Math.abs(pval)) return [cur, idx];
+            return prev;
+          },
+          [2e32, -1],
+        );
+      console.log('idx: ', index);
+      this.selectedIdx = index;
+      this.updateSlide(index);
+    },
+    updateSlide(idx) {
+      const width = $(this.$el).width();
+      const newMargin = `${-idx * width}px`;
+      const el = $(this.$el).children()[0];
+      if (el.style.marginLeft !== newMargin) el.style.marginLeft = newMargin;
+    },
+    resetSlidePosition() {},
+    nextSlide() {
+      this.selectedIdx += 1;
+      if (this.selectedIdx >= this.slides.length) this.selectedIdx = 0;
+    },
+    autoNextSlide() {
+      return setInterval(this.nextSlide, this.delay);
+    },
+    resetAutoNextSlide() {
+      if (this.autoNextSlideId) {
+        this.autoNextSlideId = clearInterval(this.autoNextSlideId);
+        // clearTimeout(this.autoNextSlideId);
+      }
+      if (this.resetAutoSlideId) {
+        clearTimeout(this.autoNextSlideId);
+        const that = this;
+        this.resetAutoSlideId = setTimeout(() => {
+          that.autoNextSlideId = that.autoNextSlide();
+        }, this.delay * 2);
+      }
+    },
+    handleStopPropagation() {
+      return false;
+    },
+  },
   watch: {
     selectedIdx(idx) {
-      const width = $(this.$el).width();
-      $(this.$el).children()[0].style.marginLeft = `${-idx
-        * width}px`;
+      this.updateSlide(idx);
     },
   },
   mounted() {
-    const that = this;
-    setInterval(() => {
-      that.selectedIdx += 1;
-      if (that.selectedIdx >= that.slides.length) that.selectedIdx = 0;
-    }, 5000);
+    this.autoNextSlide();
+    // console.log('watchers: ', this.$watch);
+    document.addEventListener('mouseup', this.handleMouseUp);
   },
 };
 </script>
@@ -90,7 +177,7 @@ $default-height: 510px;
 
   width: 100%;
   height: $default-height;
-
+  user-select: none;
   overflow: hidden;
   background: {
     repeat: no-repeat;
@@ -140,6 +227,7 @@ $default-height: 510px;
   display: flex;
   position: absolute;
   align-items: center;
+  justify-content: center;
 
   bottom: 20px;
   left: 50%;
@@ -160,7 +248,8 @@ $default-height: 510px;
     size: 100%;
   }
 
-  @include sizes(12px);
+  @include sizes(11px);
+  image-rendering: crisp-edges;
 }
 
 .pager {
@@ -169,5 +258,6 @@ $default-height: 510px;
     repeat: no-repeat;
     size: 100%;
   }
+  image-rendering: crisp-edges;
 }
 </style>
