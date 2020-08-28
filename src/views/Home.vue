@@ -4,8 +4,7 @@
       background="https://wj.qq.com/image/index_sliders_bg.jpg"
       :slides="indexSlides"
     ></base-slider>
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
+    <live-stat></live-stat>
   </div>
 </template>
 
@@ -13,11 +12,13 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue';
 import BaseSlider from '@/components/BaseSlider.vue';
+import LiveStat from '@/components/LiveStat.vue';
 
 export default {
   name: 'Home',
   components: {
     BaseSlider,
+    LiveStat,
   },
   data() {
     return {

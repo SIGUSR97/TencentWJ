@@ -16,5 +16,6 @@ module.exports = {
       'error',
       {ignorePattern: '^.*(["\']).*\\1'},
     ],
+    'func-names': ["error", "never"]
   },
 };

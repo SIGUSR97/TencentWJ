@@ -19,7 +19,7 @@
             <span class="splitter">|</span>
             <span class="quit">退出</span>
           </div>
-          <button class="login-btn" v-else>登录</button>
+          <base-button v-else>登录</base-button>
           <!-- <button class="login-btn">登录</button> -->
         </template>
       </nav-bar>
@@ -32,10 +32,12 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 export default {
   components: {
     NavBar,
+    BaseButton,
   },
   data() {
     return {
@@ -47,7 +49,7 @@ export default {
         { name: '帮助中心', path: './test' },
       ],
       user: {
-        loggedIn: true,
+        loggedIn: false,
         profilePic: 'http://localhost:8000/img/profile',
       },
     };
@@ -114,30 +116,6 @@ $head-height: 60px;
   img {
     @include sizes(32px);
     margin-right: 5px;
-  }
-}
-
-$login-btn-color: #80c200;
-$login-btn-color-active: #5aae00;
-
-.login-btn {
-  outline: none;
-  border: none;
-
-  background-color: $login-btn-color;
-  height: 34px;
-  padding: 0px 20px;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-
-  transition: $transition-fast;
-
-  font-size: 14px;
-
-  &:active,
-  &:hover {
-    background-color: $login-btn-color-active;
   }
 }
 

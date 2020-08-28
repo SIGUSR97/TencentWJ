@@ -111,7 +111,7 @@ export default {
           },
           [2e32, -1],
         );
-      console.log('idx: ', index);
+      // console.log('idx: ', index);
       this.selectedIdx = index;
       this.updateSlide(index);
     },
