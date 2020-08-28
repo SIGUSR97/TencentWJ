@@ -5,6 +5,7 @@
       :slides="indexSlides"
     ></base-slider>
     <live-stat></live-stat>
+    <popular-templates></popular-templates>
   </div>
 </template>
 
@@ -13,12 +14,14 @@
 // import HelloWorld from '@/components/HelloWorld.vue';
 import BaseSlider from '@/components/BaseSlider.vue';
 import LiveStat from '@/components/LiveStat.vue';
+import PopularTemplates from '@/components/PopularTemplates.vue';
 
 export default {
   name: 'Home',
   components: {
     BaseSlider,
     LiveStat,
+    PopularTemplates,
   },
   data() {
     return {

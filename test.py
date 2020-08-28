@@ -13,4 +13,7 @@ driver.get('https://wj.qq.com/')
 html = driver.page_source
 soup = BeautifulSoup(html, features="html.parser")
 
-print("usercount: ", int(soup.find(class_='user_count').get_text().replace(',', '')))
+# print("usercount: ", int(soup.find(class_='user_count').get_text().replace(',', '')))
+print(soup.select(".template > img"))
+for tag in soup.select("img.thumbnail"): 
+    print(tag.attrs)

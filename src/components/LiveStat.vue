@@ -1,5 +1,5 @@
 <template>
-  <div class="main-wrapper">
+  <div class="live-stat">
     <div class="stat">
       当前已经为广大用户完成<span class="user-count">{{
         userCount
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-wrapper {
+.live-stat {
   position: relative;
   display: flex;
   flex-direction: row;

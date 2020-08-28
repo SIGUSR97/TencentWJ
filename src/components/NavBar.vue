@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="navbar-wrapper">
     <div class="start" v-if="hasSlot('start')">
       <slot name="start"> </slot>
     </div>
@@ -88,7 +88,7 @@ $transition-fast: 100ms all ease-in-out;
   // z-index: 1000;
 }
 
-.wrapper {
+.navbar-wrapper {
   position: relative;
   display: flex;
   flex-direction: row;
