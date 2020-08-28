@@ -12,6 +12,7 @@
 
 <script>
 import $ from 'jquery';
+import axios from 'axios';
 import BaseButton from '@/components/BaseButton.vue';
 
 export default {
@@ -20,29 +21,40 @@ export default {
   },
   data() {
     return {
-      userCount: 1115292578,
+      userCount: 0,
     };
   },
-  mounted() {
-    console.log($(this.$el).find('.user-count'));
-    $(this.$el)
-      .find('.user-count')
-      .each(function () {
-        $(this)
-          .prop('counter', 0)
-          .animate(
-            {
-              counter: $(this).text(),
-            },
-            {
-              duration: 1000,
-              easing: 'swing',
-              step(now) {
-                $(this).text(Math.trunc(now).toLocaleString());
+  methods: {
+    animateUserCount(count) {
+      $(this.$el)
+        .find('.user-count')
+        .each(function () {
+          $(this)
+            .prop('counter', 0)
+            .animate(
+              {
+                counter: count,
               },
-            },
-          );
-      });
+              {
+                duration: 1000,
+                easing: 'swing',
+                step(now) {
+                  $(this).text(Math.trunc(now).toLocaleString());
+                },
+              },
+            );
+        });
+    },
+  },
+  watch: {
+    userCount(newVal) {
+      this.animateUserCount(newVal);
+    },
+  },
+  mounted() {
+    axios.get('http://localhost:8000/usercount').then((res) => {
+      this.userCount = res.data.count;
+    });
   },
 };
 </script>
