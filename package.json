@@ -9,6 +9,7 @@
     "server": "uvicorn server:app --reload"
   },
   "dependencies": {
+    "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "fontmin": "^0.9.8",
     "jquery": "^3.5.1",
