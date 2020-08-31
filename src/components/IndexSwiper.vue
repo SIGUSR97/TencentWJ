@@ -72,6 +72,7 @@ export default {
 
   height: 100%;
   width: 100%;
+  margin-bottom: 100px;
 
   color: #fff;
   line-height: 1.5;

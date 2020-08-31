@@ -9,20 +9,20 @@
 </template>
 
 <script>
+import IndexSwiper from '@/components/IndexSwiper.vue';
 import LiveStat from '@/components/LiveStat.vue';
 import PopularTemplates from '@/components/PopularTemplates.vue';
 import UserComments from '@/components/UserComments.vue';
 import JoinTencent from '@/components/JoinTencent.vue';
-import IndexSwiper from '@/components/IndexSwiper.vue';
 
 export default {
   name: 'Home',
   components: {
+    IndexSwiper,
     LiveStat,
     PopularTemplates,
     UserComments,
     JoinTencent,
-    IndexSwiper,
   },
   data() {
     return {};

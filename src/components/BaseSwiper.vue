@@ -120,7 +120,6 @@ export default {
         newMargin -= child.getBoundingClientRect().width;
       }
       newMargin = `${newMargin}px`;
-      console.log(`idx: ${idx}, newMargin: ${newMargin}`);
       const el = this.firstSlide;
       const style = el.currentStyle || window.getComputedStyle(el);
       if (style.marginLeft !== newMargin) el.style.marginLeft = newMargin;
@@ -168,8 +167,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$default-height: 510px;
-
 @mixin sizes($w, $h: -1) {
   @if $h < 0 {
     $h: $w;
@@ -184,7 +181,7 @@ $default-height: 510px;
   position: relative;
 
   width: 100%;
-  height: $default-height;
+  height: 100%;
   user-select: none;
   overflow: hidden;
   background: {
@@ -201,43 +198,7 @@ $default-height: 510px;
   flex-wrap: nowrap;
 
   width: 100%;
-}
-
-.slide {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-
   height: 100%;
-  width: 100%;
-
-  color: #fff;
-  line-height: 1.5;
-
-  transition: 500ms all ease-in-out;
-
-  h2 {
-    padding-top: 110px;
-
-    font-size: 50px;
-    font-weight: normal;
-  }
-
-  h3 {
-    margin: {
-      top: -3px;
-      bottom: 20px;
-    }
-    font-size: 20px;
-    font-weight: normal;
-  }
-
-  img {
-    display: inline-block;
-    margin-top: 13px;
-  }
 }
 
 .slide-controls-pager {
