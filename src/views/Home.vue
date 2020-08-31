@@ -1,22 +1,6 @@
 <template>
   <div class="home">
-    <base-swiper
-      background="https://wj.qq.com/image/index_sliders_bg.jpg"
-    >
-      <base-slide
-        v-for="[idx, slide] in indexSlides.entries()"
-        :key="idx"
-        class="slide"
-      >
-        <h2>
-          {{ slide.title }}
-        </h2>
-        <h3>
-          {{ slide.subtitle }}
-        </h3>
-        <img :src="slide.image" draggable="false" />
-      </base-slide>
-    </base-swiper>
+    <index-swiper></index-swiper>
     <live-stat></live-stat>
     <popular-templates></popular-templates>
     <user-comments></user-comments>
@@ -27,22 +11,20 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue';
-import BaseSwiper from '@/components/BaseSwiper.vue';
 import LiveStat from '@/components/LiveStat.vue';
 import PopularTemplates from '@/components/PopularTemplates.vue';
 import UserComments from '@/components/UserComments.vue';
 import JoinTencent from '@/components/JoinTencent.vue';
-import BaseSlide from '@/components/BaseSlide.vue';
+import IndexSwiper from '@/components/IndexSwiper.vue';
 
 export default {
   name: 'Home',
   components: {
-    BaseSwiper,
     LiveStat,
     PopularTemplates,
     UserComments,
     JoinTencent,
-    BaseSlide,
+    IndexSwiper,
   },
   data() {
     return {
