@@ -10,6 +10,12 @@ npm install
 npm run serve
 ```
 
+### Run development sever
+```
+npm run server
+# alias for '
+```
+
 ### Compiles and minifies for production
 ```
 npm run build

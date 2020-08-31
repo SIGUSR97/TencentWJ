@@ -162,6 +162,7 @@ export default {
     );
     this.autoNextSlide();
     document.addEventListener('mouseup', this.handleMouseUp);
+    document.addEventListener('mousemove', this.handleMouseMove);
   },
 };
 </script>
