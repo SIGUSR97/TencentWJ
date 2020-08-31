@@ -1,27 +1,33 @@
 <template>
   <div class="home">
-    <base-slider
+    <base-swiper
       background="https://wj.qq.com/image/index_sliders_bg.jpg"
       :slides="indexSlides"
-    ></base-slider>
+    ></base-swiper>
     <live-stat></live-stat>
     <popular-templates></popular-templates>
+    <join-tencent></join-tencent>
+    <user-comments></user-comments>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue';
-import BaseSlider from '@/components/BaseSlider.vue';
+import BaseSwiper from '@/components/BaseSwiper.vue';
 import LiveStat from '@/components/LiveStat.vue';
 import PopularTemplates from '@/components/PopularTemplates.vue';
+import UserComments from '@/components/UserComments.vue';
+import JoinTencent from '@/components/JoinTencent.vue';
 
 export default {
   name: 'Home',
   components: {
-    BaseSlider,
+    BaseSwiper,
     LiveStat,
     PopularTemplates,
+    UserComments,
+    JoinTencent,
   },
   data() {
     return {

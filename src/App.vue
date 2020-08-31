@@ -49,7 +49,7 @@ export default {
         { name: '帮助中心', path: './test' },
       ],
       user: {
-        loggedIn: false,
+        loggedIn: true,
         profilePic: 'http://localhost:8000/img/profile',
       },
     };

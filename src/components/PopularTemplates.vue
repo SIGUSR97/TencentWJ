@@ -86,12 +86,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
 
   width: 100%;
-  height: 230px;
-  min-width: 1000px;
-  max-width: 1000px;
+  max-width: 1040px;
+  min-width: 980px;
+  padding-bottom: 30px;
   margin: 0 auto;
 }
 
@@ -102,5 +102,21 @@ export default {
   justify-content: space-between;
 
   width: 100%;
+
+  & >>> .template-button {
+    flex-shrink: 0;
+    margin-left: calc(20% - 168px);
+  }
+
+  // ::v-deep .template-button :not(:first-child) {
+  // }
 }
+
+.template-button-wrapper > .template-button:not(:first-child) {
+  margin-left: 32px;
+  flex-shrink: 0;
+}
+// .template-button:nth-child(1) {
+//   margin-left: 0;
+// }
 </style>
