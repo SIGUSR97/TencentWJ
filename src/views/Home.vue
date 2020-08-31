@@ -4,6 +4,7 @@
       background="https://wj.qq.com/image/index_sliders_bg.jpg"
       :slides="indexSlides"
     ></base-swiper>
+    asssssssss
     <live-stat></live-stat>
     <popular-templates></popular-templates>
     <user-comments></user-comments>

@@ -13,7 +13,7 @@
     <div
       v-for="[idx, slide] in slides.entries()"
       :key="idx"
-      class="slider"
+      class="slide"
       :style="{'background-image': slide.background}"
     >
       <h2>
@@ -24,20 +24,20 @@
       </h3>
       <img :src="slide.image" draggable="false" />
     </div>
-    <div class="slider-controls">
-      <div class="slider-controls-direction">
+    <div class="slide-controls">
+      <div class="slide-controls-direction">
         <div class="prev"></div>
         <div class="next"></div>
       </div>
       <div
-        class="slider-controls-pager"
+        class="slide-controls-pager"
         @click="handleStopPropagation"
       >
         <div
           v-for="idx in slides.keys()"
           :key="idx"
           :class="{
-            'slider-pager-item': true,
+            'slide-pager-item': true,
             pager: idx !== selectedIdx,
             'pager-selected': idx === selectedIdx,
           }"
@@ -121,7 +121,7 @@ export default {
           this.slides.length - 1,
         );
       }
-      this.autoNextSlide();
+      if (this.autoNextSlideIntervalId === null) this.autoNextSlide();
       this.updateSlide(this.selectedIdx);
     },
     updateSlide(idx) {
@@ -149,6 +149,7 @@ export default {
     stopAutoNextSlide() {
       if (this.autoNextSlideIntervalId) {
         clearInterval(this.autoNextSlideIntervalId);
+        this.autoNextSlideIntervalId = null;
       }
     },
     handleStopPropagation() {
@@ -194,7 +195,7 @@ $default-height: 510px;
   }
 }
 
-.slider {
+.slide {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -231,7 +232,7 @@ $default-height: 510px;
   }
 }
 
-.slider-controls-pager {
+.slide-controls-pager {
   display: flex;
   position: absolute;
   align-items: center;
@@ -242,7 +243,7 @@ $default-height: 510px;
   transform: translateX(-50%);
 }
 
-.slider-pager-item {
+.slide-pager-item {
   @include sizes(10px);
 
   margin: 0 4px;
