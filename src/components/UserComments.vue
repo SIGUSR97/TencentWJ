@@ -7,18 +7,14 @@
       </div>
       <div class="users">
         <div
-          class="user"
+          :class="{user: true, selected: currentCommentIdx === idx}"
           v-for="[idx, comment] in comments.entries()"
           :key="idx"
           @click="currentCommentIdx = idx"
         >
-          <img
-            :src="comment.user.avatar"
-            :class="{
-              avatar: true,
-              selected: idx === currentCommentIdx,
-            }"
-          />
+          <div class="avatar-wrapper">
+            <img :src="comment.user.avatar" class="avatar" />
+          </div>
           <div class="detail">
             <div class="name">{{ comment.user.name }}</div>
             <div class="corp">{{ comment.user.corp }}</div>
@@ -121,6 +117,7 @@ export default {
 }
 
 $user-margin-top: 31px;
+$transition-fast: 100ms all ease-in-out;
 
 .users {
   display: flex;
@@ -141,23 +138,50 @@ $user-margin-top: 31px;
   align-items: center;
   justify-self: center;
 
+  width: 150px;
   margin-top: $user-margin-top;
 
   cursor: pointer;
 
-  &:hover > .avatar {
-    box-shadow: #58a6e7 0 0 0 2px;
+  filter: opacity(60%);
+
+  .avatar-wrapper {
+    position: relative;
+    // display: flex;
+    align-items: center;
+    margin-right: 7px;
+  }
+
+  & > .avatar-wrapper::before {
+    content: '';
+    position: absolute;
+    $thickness: 2px;
+    top: -$user-margin-top - $thickness;
+    left: 50%;
+    transform: translateX(-50%);
+    height: $thickness;
+    width: 0%;
+    background-color: #58a6e7;
+
+    transition: $transition-fast;
+  }
+
+  &:hover > .avatar-wrapper::before,
+  &.selected > .avatar-wrapper::before {
+    width: 100%;
+  }
+
+  &:hover,
+  &.selected {
+    filter: none;
   }
 
   .avatar {
     position: relative;
+    vertical-align: bottom;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-right: 7px;
-    &.selected {
-      box-shadow: #58a6e7 0 0 0 2px;
-    }
   }
 
   .name {

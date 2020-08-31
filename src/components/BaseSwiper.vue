@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper"
+    class="swiper-wrapper"
     :style="{backgroundImage: `url(${this.background})`}"
     @mousedown="handleMouseDown"
     @mousemove="handleMouseMove"
@@ -14,6 +14,7 @@
       v-for="[idx, slide] in slides.entries()"
       :key="idx"
       class="slider"
+      :style="{'background-image': slide.background}"
     >
       <h2>
         {{ slide.title }}
@@ -48,7 +49,11 @@
 </template>
 
 <script>
-import $ from 'jquery';
+// import $ from 'jquery';
+
+function clip(num, lower, upper) {
+  return Math.min(Math.max(num, lower), upper);
+}
 
 export default {
   props: {
@@ -60,7 +65,11 @@ export default {
     },
     delay: {
       type: Number,
-      default: 10000,
+      default: 5000,
+    },
+    pagerPosition: {
+      type: String,
+      default: 'bottom',
     },
   },
   data() {
@@ -73,16 +82,19 @@ export default {
     handleMouseDown(e) {
       if (e.changedTouches) e.clientX = e.changedTouches[0].pageX;
       this.startX = e.clientX;
-      const el = $(this.$el).children()[0];
+      const el = this.$el.childNodes[0];
       const style = el.currentStyle || window.getComputedStyle(el);
-      this.startMarginLeft = style.marginLeft;
+      this.startMarginLeft = Number.parseInt(style.marginLeft, 10);
+      this.startIdx = this.selectedIdx;
       this.mouseMoveStarted = true;
+
+      this.stopAutoNextSlide();
     },
     handleMouseMove(e) {
       if (this.mouseMoveStarted) {
         if (e.changedTouches) e.clientX = e.changedTouches[0].pageX;
         const deltaX = e.clientX - this.startX;
-        const el = $(this.$el).children()[0];
+        const el = this.$el.childNodes[0];
         el.style.transition = 'none';
         el.style.marginLeft = `${Number.parseInt(
           this.startMarginLeft,
@@ -92,54 +104,51 @@ export default {
     },
 
     handleMouseUp() {
-      $(this.$el).children()[0].style.transition = null;
+      this.$el.childNodes[0].style.transition = null;
       this.mouseMoveStarted = false;
-      const el = $(this.$el).children()[0];
+      const el = this.$el.childNodes[0];
       const style = el.currentStyle || window.getComputedStyle(el);
       const marginLeft = Number.parseInt(style.marginLeft, 10);
-      const width = $(this.$el).width();
-      const margins = [...this.slides.keys()].map((i) => i * -width);
-      // console.log(margins.map((m) => m - marginLeft));
-      const [, index] = margins
-        .map((m) => m - marginLeft)
-        .reduce(
-          (prev, cur, idx) => {
-            // eslint-disable-next-line comma-spacing
-            const [pval, ,] = prev;
-            if (Math.abs(cur) < Math.abs(pval)) return [cur, idx];
-            return prev;
-          },
-          [2e32, -1],
+      const deltaMargin = this.startMarginLeft - marginLeft;
+      if (
+        Math.abs(deltaMargin) > 50
+        && this.startIdx === this.selectedIdx
+      ) {
+        this.selectedIdx += deltaMargin / Math.abs(deltaMargin);
+        this.selectedIdx = clip(
+          this.selectedIdx,
+          0,
+          this.slides.length - 1,
         );
-      // console.log('idx: ', index);
-      this.selectedIdx = index;
-      this.updateSlide(index);
+      }
+      this.autoNextSlide();
+      this.updateSlide(this.selectedIdx);
     },
     updateSlide(idx) {
-      const width = $(this.$el).width();
-      const newMargin = `${-idx * width}px`;
-      const el = $(this.$el).children()[0];
-      if (el.style.marginLeft !== newMargin) el.style.marginLeft = newMargin;
+      let newMargin = 0;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [i, child] of this.$el.childNodes.entries()) {
+        if (i === idx) break;
+        newMargin -= child.getBoundingClientRect().width;
+      }
+      newMargin = `${newMargin}px`;
+      const el = this.$el.childNodes[0];
+      const style = el.currentStyle || window.getComputedStyle(el);
+      if (style.marginLeft !== newMargin) el.style.marginLeft = newMargin;
     },
-    resetSlidePosition() {},
     nextSlide() {
       this.selectedIdx += 1;
       if (this.selectedIdx >= this.slides.length) this.selectedIdx = 0;
     },
     autoNextSlide() {
-      return setInterval(this.nextSlide, this.delay);
+      this.autoNextSlideIntervalId = setInterval(
+        this.nextSlide,
+        this.delay,
+      );
     },
-    resetAutoNextSlide() {
-      if (this.autoNextSlideId) {
-        this.autoNextSlideId = clearInterval(this.autoNextSlideId);
-        // clearTimeout(this.autoNextSlideId);
-      }
-      if (this.resetAutoSlideId) {
-        clearTimeout(this.autoNextSlideId);
-        const that = this;
-        this.resetAutoSlideId = setTimeout(() => {
-          that.autoNextSlideId = that.autoNextSlide();
-        }, this.delay * 2);
+    stopAutoNextSlide() {
+      if (this.autoNextSlideIntervalId) {
+        clearInterval(this.autoNextSlideIntervalId);
       }
     },
     handleStopPropagation() {
@@ -153,7 +162,6 @@ export default {
   },
   mounted() {
     this.autoNextSlide();
-    // console.log('watchers: ', this.$watch);
     document.addEventListener('mouseup', this.handleMouseUp);
   },
 };
@@ -171,7 +179,7 @@ $default-height: 510px;
   height: $h;
 }
 
-.wrapper {
+.swiper-wrapper {
   display: flex;
   position: relative;
 

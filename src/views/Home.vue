@@ -6,8 +6,8 @@
     ></base-swiper>
     <live-stat></live-stat>
     <popular-templates></popular-templates>
-    <join-tencent></join-tencent>
     <user-comments></user-comments>
+    <join-tencent></join-tencent>
   </div>
 </template>
 
