@@ -2,9 +2,21 @@
   <div class="home">
     <base-swiper
       background="https://wj.qq.com/image/index_sliders_bg.jpg"
-      :slides="indexSlides"
-    ></base-swiper>
-    asssssssss
+    >
+      <base-slide
+        v-for="[idx, slide] in indexSlides.entries()"
+        :key="idx"
+        class="slide"
+      >
+        <h2>
+          {{ slide.title }}
+        </h2>
+        <h3>
+          {{ slide.subtitle }}
+        </h3>
+        <img :src="slide.image" draggable="false" />
+      </base-slide>
+    </base-swiper>
     <live-stat></live-stat>
     <popular-templates></popular-templates>
     <user-comments></user-comments>
@@ -20,6 +32,7 @@ import LiveStat from '@/components/LiveStat.vue';
 import PopularTemplates from '@/components/PopularTemplates.vue';
 import UserComments from '@/components/UserComments.vue';
 import JoinTencent from '@/components/JoinTencent.vue';
+import BaseSlide from '@/components/BaseSlide.vue';
 
 export default {
   name: 'Home',
@@ -29,6 +42,7 @@ export default {
     PopularTemplates,
     UserComments,
     JoinTencent,
+    BaseSlide,
   },
   data() {
     return {
@@ -62,3 +76,42 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.slide {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+
+  height: 100%;
+  width: 100%;
+
+  color: #fff;
+  line-height: 1.5;
+
+  transition: 500ms all ease-in-out;
+
+  h2 {
+    padding-top: 110px;
+
+    font-size: 50px;
+    font-weight: normal;
+  }
+
+  h3 {
+    margin: {
+      top: -3px;
+      bottom: 20px;
+    }
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  img {
+    display: inline-block;
+    margin-top: 13px;
+  }
+}
+</style>

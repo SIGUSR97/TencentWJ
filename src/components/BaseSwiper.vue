@@ -10,19 +10,8 @@
     @touchend="handleMouseUp"
     @touchcancel="handleMouseUp"
   >
-    <div
-      v-for="[idx, slide] in slides.entries()"
-      :key="idx"
-      class="slide"
-      :style="{'background-image': slide.background}"
-    >
-      <h2>
-        {{ slide.title }}
-      </h2>
-      <h3>
-        {{ slide.subtitle }}
-      </h3>
-      <img :src="slide.image" draggable="false" />
+    <div class="slides">
+      <slot></slot>
     </div>
     <div class="slide-controls">
       <div class="slide-controls-direction">
@@ -60,9 +49,6 @@ export default {
     background: {
       type: String,
     },
-    slides: {
-      type: Array,
-    },
     delay: {
       type: Number,
       default: 5000,
@@ -76,13 +62,14 @@ export default {
     return {
       selectedIdx: 0,
       autoNextSlideId: null,
+      slides: [],
     };
   },
   methods: {
     handleMouseDown(e) {
       if (e.changedTouches) e.clientX = e.changedTouches[0].pageX;
       this.startX = e.clientX;
-      const el = this.$el.childNodes[0];
+      const el = this.firstSlide;
       const style = el.currentStyle || window.getComputedStyle(el);
       this.startMarginLeft = Number.parseInt(style.marginLeft, 10);
       this.startIdx = this.selectedIdx;
@@ -94,7 +81,7 @@ export default {
       if (this.mouseMoveStarted) {
         if (e.changedTouches) e.clientX = e.changedTouches[0].pageX;
         const deltaX = e.clientX - this.startX;
-        const el = this.$el.childNodes[0];
+        const el = this.firstSlide;
         el.style.transition = 'none';
         el.style.marginLeft = `${Number.parseInt(
           this.startMarginLeft,
@@ -104,9 +91,9 @@ export default {
     },
 
     handleMouseUp() {
-      this.$el.childNodes[0].style.transition = null;
+      const el = this.firstSlide;
+      el.style.transition = null;
       this.mouseMoveStarted = false;
-      const el = this.$el.childNodes[0];
       const style = el.currentStyle || window.getComputedStyle(el);
       const marginLeft = Number.parseInt(style.marginLeft, 10);
       const deltaMargin = this.startMarginLeft - marginLeft;
@@ -126,13 +113,15 @@ export default {
     },
     updateSlide(idx) {
       let newMargin = 0;
+
       // eslint-disable-next-line no-restricted-syntax
-      for (const [i, child] of this.$el.childNodes.entries()) {
+      for (const [i, child] of this.slides.entries()) {
         if (i === idx) break;
         newMargin -= child.getBoundingClientRect().width;
       }
       newMargin = `${newMargin}px`;
-      const el = this.$el.childNodes[0];
+      console.log(`idx: ${idx}, newMargin: ${newMargin}`);
+      const el = this.firstSlide;
       const style = el.currentStyle || window.getComputedStyle(el);
       if (style.marginLeft !== newMargin) el.style.marginLeft = newMargin;
     },
@@ -162,6 +151,16 @@ export default {
     },
   },
   mounted() {
+    this.slides = Array.from(
+      this.$el.querySelector('.slides').childNodes,
+    );
+    // eslint-disable-next-line
+    this.firstSlide = this.slides[0];
+    console.log('slides: ', this.slides);
+    console.log(
+      'slide rects: ',
+      this.slides.map((el) => el.getBoundingClientRect()),
+    );
     this.autoNextSlide();
     document.addEventListener('mouseup', this.handleMouseUp);
   },
@@ -193,6 +192,15 @@ $default-height: 510px;
     size: cover;
     position: 50% 0;
   }
+}
+
+.slides {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  width: 100%;
 }
 
 .slide {
