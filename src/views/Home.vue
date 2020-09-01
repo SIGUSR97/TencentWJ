@@ -6,6 +6,7 @@
     <user-comments></user-comments>
     <join-tencent></join-tencent>
     <tencent-info></tencent-info>
+    <copyright-footer></copyright-footer>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import PopularTemplates from '@/components/PopularTemplates.vue';
 import UserComments from '@/components/UserComments.vue';
 import JoinTencent from '@/components/JoinTencent.vue';
 import TencentInfo from '@/components/TencentInfo.vue';
+import CopyrightFooter from '@/components/CopyrightFooter.vue';
 
 export default {
   name: 'Home',
@@ -26,6 +28,7 @@ export default {
     UserComments,
     JoinTencent,
     TencentInfo,
+    CopyrightFooter,
   },
   data() {
     return {};

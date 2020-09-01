@@ -75,6 +75,7 @@ export default {};
 }
 
 .tencent-info-wrapper {
+  position: relative;
   background: #f5f5f5;
   padding: 38px 0 20px;
 }
