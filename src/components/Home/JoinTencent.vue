@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import JoinSwiper from '@/components/JoinSwiper.vue';
+import JoinSwiper from '@/components/Home/JoinSwiper.vue';
 
 export default {
   components: {
@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 @font-face {
   font-family: tencentFont;
-  src: url('../assets/txFontTtq.ttf');
+  src: url('../../assets/txFontTtq.ttf');
 }
 
 .join-wrapper {

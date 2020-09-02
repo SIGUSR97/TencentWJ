@@ -13,12 +13,12 @@
 
 <script>
 import TencentNavbar from '@/components/TencentNavbar.vue';
-import IndexSwiper from '@/components/IndexSwiper.vue';
-import LiveStat from '@/components/LiveStat.vue';
-import PopularTemplates from '@/components/PopularTemplates.vue';
-import UserComments from '@/components/UserComments.vue';
-import JoinTencent from '@/components/JoinTencent.vue';
-import TencentInfo from '@/components/TencentInfo.vue';
+import IndexSwiper from '@/components/Home/IndexSwiper.vue';
+import LiveStat from '@/components/Home/LiveStat.vue';
+import PopularTemplates from '@/components/Home/PopularTemplates.vue';
+import UserComments from '@/components/Home/UserComments.vue';
+import JoinTencent from '@/components/Home/JoinTencent.vue';
+import TencentInfo from '@/components/Home/TencentInfo.vue';
 import CopyrightFooter from '@/components/CopyrightFooter.vue';
 
 export default {

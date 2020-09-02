@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import TemplateButton from '@/components/TemplateButton.vue';
+import TemplateButton from '@/components/Home/TemplateButton.vue';
 
 export default {
   components: {
