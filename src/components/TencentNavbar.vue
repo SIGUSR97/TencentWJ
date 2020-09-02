@@ -2,14 +2,14 @@
   <div class="head">
     <nav-bar :links="links">
       <template v-slot:start>
-        <div class="nav-icon">
+        <router-link to="/" tag="div" class="nav-icon">
           <img
             src="https://wj.qq.com/image/logo.png?v=@version"
             alt="腾讯问卷"
             class="icon-img"
           />
           <div class="tx-font">腾讯问卷</div>
-        </div>
+        </router-link>
       </template>
       <template v-slot:end>
         <div class="logged-in" v-if="user.loggedIn">
