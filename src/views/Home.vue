@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <tencent-navbar></tencent-navbar>
     <index-swiper></index-swiper>
     <live-stat></live-stat>
     <popular-templates></popular-templates>
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import TencentNavbar from '@/components/TencentNavbar.vue';
 import IndexSwiper from '@/components/IndexSwiper.vue';
 import LiveStat from '@/components/LiveStat.vue';
 import PopularTemplates from '@/components/PopularTemplates.vue';
@@ -22,6 +24,7 @@ import CopyrightFooter from '@/components/CopyrightFooter.vue';
 export default {
   name: 'Home',
   components: {
+    TencentNavbar,
     IndexSwiper,
     LiveStat,
     PopularTemplates,

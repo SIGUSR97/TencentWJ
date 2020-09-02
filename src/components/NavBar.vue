@@ -1,15 +1,16 @@
 <template>
-  <div class="navbar-wrapper">
+  <div :class="`navbar-wrapper container ${containerWidth}`">
     <div class="start" v-if="hasSlot('start')">
       <slot name="start"> </slot>
     </div>
-    <div
+    <router-link
       class="nav-menu-item"
       v-for="[idx, link] in links.entries()"
       :key="idx"
+      :to="link.path"
     >
       {{ link.name }}
-    </div>
+    </router-link>
     <div class="end" v-if="hasSlot('end')">
       <slot name="end"> </slot>
     </div>
@@ -25,6 +26,13 @@ export default {
     links: {
       type: Array,
       default: () => [{ name: 'home', path: '/' }],
+    },
+    containerWidth: {
+      type: String,
+      default: '',
+      validator(value) {
+        return ['wide', 'wider', ''].indexOf(value) !== -1;
+      },
     },
   },
   methods: {
@@ -77,6 +85,8 @@ $transition-fast: 100ms all ease-in-out;
   background-repeat: no-repeat;
   background-size: 0 $size;
   background-position: 50% 100%;
+  transition: $transition-fast;
+
   &:hover {
     color: $brand-color;
     background-size: 100% $size;
@@ -97,8 +107,6 @@ $transition-fast: 100ms all ease-in-out;
 
   width: 100%;
   height: $default-height;
-  min-width: 980px;
-  max-width: 1040px;
   margin: 0 auto;
   // max-width: 1040px;
   padding: 0 $default-padding;
@@ -115,8 +123,13 @@ $transition-fast: 100ms all ease-in-out;
 .nav-menu-item {
   @include menu-item;
 
-  transition: $transition-fast;
-  @include underline-ani($brand-color);
+  $underline-thickness: 2px;
+  @include underline-ani($brand-color, $underline-thickness);
+  color: #000;
+
+  &.router-link-active {
+    background-size: 100% $underline-thickness;
+  }
 }
 
 .start {

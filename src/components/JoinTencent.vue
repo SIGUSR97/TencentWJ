@@ -1,6 +1,6 @@
 <template>
   <div class="join-wrapper">
-    <div class="join-tencent">
+    <div class="join-tencent container">
       <join-swiper></join-swiper>
       <div class="content">
         <h3 class="ttq-title">欢迎关注卷叔填填圈</h3>
@@ -48,8 +48,6 @@ export default {
 
   // width: 100%;
   height: 310px;
-  max-width: 1040px;
-  min-width: 980px;
   margin: 0 auto;
   border: 1px solid #dddddd;
   border-radius: 3px;

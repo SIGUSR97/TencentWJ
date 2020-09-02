@@ -1,10 +1,11 @@
 <template>
-  <div class="live-stat">
+  <div class="live-stat container">
     <div class="stat">
-      当前已经为广大用户完成<span class="user-count">{{
-        userCount
-      }}</span
-      >份回收
+      当前已经为广大用户完成
+      <span class="user-count">
+        {{ userCount }}
+      </span>
+      份回收
     </div>
     <base-button class="get-started-btn">立即使用</base-button>
   </div>
@@ -36,7 +37,7 @@ export default {
                 counter: count,
               },
               {
-                duration: 1000,
+                duration: 3000,
                 easing: 'swing',
                 step(now) {
                   $(this).text(Math.trunc(now).toLocaleString());
@@ -67,10 +68,8 @@ export default {
   align-items: center;
   justify-content: space-between;
 
-  width: 100%;
+  // width: 100%;
   height: 142px;
-  min-width: 1000px;
-  max-width: 1000px;
   margin: 0 auto;
   border-bottom: 1px solid #ddd;
 }

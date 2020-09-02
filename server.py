@@ -1,14 +1,15 @@
 from glob import glob
 
-import bs4
-import requests
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.remote.remote_connection import LOGGER, logging
 from webdriver_manager.chrome import ChromeDriverManager
+
+LOGGER.setLevel(logging.FATAL)
 
 options = Options()
 options.add_argument('--headless')

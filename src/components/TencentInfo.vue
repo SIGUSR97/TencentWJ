@@ -1,6 +1,6 @@
 <template>
   <div class="tencent-info-wrapper">
-    <div class="tencent-info">
+    <div class="tencent-info container">
       <div class="description">
         <div>
           <span class="keyword simple">简约</span>
@@ -86,8 +86,8 @@ export default {};
   justify-content: space-around;
 
   width: 100%;
-  max-width: 1040px;
-  min-width: 980px;
+  // max-width: 1040px;
+  // min-width: 980px;
   margin: 0 auto;
 
   color: #333;
