@@ -2,11 +2,11 @@
   max-width: 1040px;
   min-width: 980px;
 
-  .wide {
+  &.wide {
     max-width: 1440px;
   }
 
-  .wider {
+  &.wider {
     max-width: none;
   }
 }

@@ -129,6 +129,7 @@ $transition-fast: 100ms all ease-in-out;
 
   &.router-link-active {
     background-size: 100% $underline-thickness;
+    color: $brand-color;
   }
 }
 

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Test from '../views/Test.vue';
+import CreateSurvey from '../views/CreateSurvey.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/test',
     name: 'test',
     component: Test,
+  },
+  {
+    path: '/guide',
+    name: 'guide',
+    component: CreateSurvey,
   },
 ];
 
