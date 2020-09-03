@@ -1,14 +1,16 @@
 <template>
-  <div class="upload-survey container wide">
-    从Excel导入数据，并自动生成问卷
-    <base-button
-      color="#008fff"
-      colorActive="#2196f3"
-      size="100 36"
-      :border-radius="4"
-    >
-      开始
-    </base-button>
+  <div class="upload-survey-wrapper">
+    <div class="upload-survey container wide">
+      从Excel导入数据，并自动生成问卷
+      <base-button
+        color="#008fff"
+        colorActive="#2196f3"
+        size="100 36"
+        :border-radius="4"
+      >
+        开始
+      </base-button>
+    </div>
   </div>
 </template>
 
@@ -23,6 +25,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.upload-survey-wrapper {
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+}
+
 .upload-survey {
   position: relative;
   display: flex;
