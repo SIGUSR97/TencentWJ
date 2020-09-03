@@ -1,5 +1,9 @@
 <template>
-  <button class="btn" :style="cssProps" @click="$emit('click')">
+  <button
+    :class="['btn', this.icon ? 'icon' : '']"
+    :style="cssProps"
+    @click="$emit('click')"
+  >
     <slot></slot>
   </button>
 </template>
@@ -16,13 +20,16 @@ export default {
     borderWidth: { type: Number, default: 1 },
     borderRadius: { type: Number, default: 3 },
     size: { type: String },
+    icon: { type: String },
+    iconSize: { type: String, default: '13' },
+    iconPosition: { type: String, default: 'left' },
   },
   computed: {
     cssProps() {
       let width = 'auto';
       let height = '34px';
       if (this.size) [width, height] = this.size.split(' ').map((i) => `${i}px`);
-      return {
+      const res = {
         '--color-btn': this.color,
         '--color-btn-active': this.colorActive,
         '--text-color': this.textColor,
@@ -34,6 +41,13 @@ export default {
         '--width': width,
         '--height': height,
       };
+
+      if (this.icon) {
+        res['--icon'] = `url("${this.icon}")`;
+        res['--icon-padding'] = this.padding;
+        res['--icon-size'] = `${this.iconSize}px`;
+      }
+      return res;
     },
   },
 };
@@ -48,6 +62,9 @@ $text-color: var(--text-color);
 $text-color-active: var(--text-color-active);
 $border: var(--border);
 $border-radius: var(--border-radius);
+
+$icon: var(--icon);
+$icon-size: var(--icon-size);
 
 @mixin btn-size {
   width: var(--width);
@@ -74,6 +91,16 @@ $border-radius: var(--border-radius);
   &:hover {
     background-color: $btn-color-active;
     color: $text-color-active;
+  }
+
+  &.icon {
+    padding: {
+      left: calc(#{$icon-size});
+    }
+    background-image: $icon;
+    background-repeat: no-repeat;
+    background-size: $icon-size;
+    background-position: 12px 50%;
   }
 }
 </style>

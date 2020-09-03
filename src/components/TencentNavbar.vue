@@ -37,7 +37,7 @@ export default {
     return {
       links: [
         { name: '创建问卷', path: '/guide' },
-        { name: '我的问卷', path: '/test' },
+        { name: '我的问卷', path: '/mine' },
         { name: '回答小组', path: '/test' },
         { name: '调查资讯', path: '/test' },
         { name: '帮助中心', path: '/test' },
@@ -112,7 +112,7 @@ $head-height: 60px;
 
 .bell {
   @include sizes(20px);
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAoBAMAAABgGZXtAAAAJ1BMVEUAAACpqampqampqampqampqampqampqampqampqampqampqampqanUNn22AAAADHRSTlMAk+rugFdMEK3FxInT9Pv5AAAAf0lEQVQoz2OAgTNnzsCY+MQSgWJiKCLsTmdAQKUASSzoDASoIoQYz8CAAFysBy52AlMZQmEMkthRqKU6SGKHIFaznEEGDmAxJhQxBbBYDorYMbCYDIrYQbDYGhSxk5AQQQWjYkAx4sEZTEBtMbzp2ebMYQwxmTOnMcQYjeFpFAC+EXAf3y47xwAAAABJRU5ErkJggg==');
+  background-image: url("data:image/svg+xml,%3Csvg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-bell-fill' fill='%23a9a9a9' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z'/%3E %3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 100%;
 }
