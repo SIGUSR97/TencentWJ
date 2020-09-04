@@ -1,5 +1,5 @@
 <template>
-  <div class="popular-templates">
+  <div class="popular-templates container">
     <div class="section-title">
       <h2>热门模板</h2>
       <a href="/">查看全部模板&gt;&gt;</a>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import TemplateButton from '@/components/TemplateButton.vue';
+import TemplateButton from '@/components/Home/TemplateButton.vue';
 
 export default {
   components: {
@@ -89,8 +89,6 @@ export default {
   // justify-content: space-between;
 
   width: 100%;
-  max-width: 1040px;
-  min-width: 980px;
   padding-bottom: 30px;
   margin: 0 auto;
 }

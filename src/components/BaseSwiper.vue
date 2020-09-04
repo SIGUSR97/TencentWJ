@@ -222,7 +222,7 @@ export default {
 
 .pager-selected {
   background: {
-    image: url("data:image/svg+xml,%3Csvg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-circle' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' d='M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/%3E %3C/svg%3E");
+    image: url("data:image/svg+xml,%3Csvg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-circle' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' shape-rendering='geometricPrecision' d='M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/%3E %3C/svg%3E");
     repeat: no-repeat;
     size: 100%;
   }
@@ -233,10 +233,10 @@ export default {
 
 .pager {
   background: {
-    image: url("data:image/svg+xml,%3Csvg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-circle-fill' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E %3Ccircle cx='8' cy='8' r='8'/%3E %3C/svg%3E");
+    image: url("data:image/svg+xml,%3Csvg width='1em' height='1em' viewBox='0 0 16 16' class='bi bi-circle-fill' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E %3Ccircle shape-rendering='geometricPrecision' cx='8' cy='8' r='8'/%3E %3C/svg%3E");
     repeat: no-repeat;
     size: 100%;
   }
-  image-rendering: crisp-edges;
+  // image-rendering: crisp-edges;
 }
 </style>

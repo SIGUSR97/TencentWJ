@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 980px;
+
+  font-family: 'PingFang SC', tahoma, arial, 'helvetica neue',
+    'hiragino sans gb', 'microsoft yahei ui', 'microsoft yahei',
+    simsun, sans-serif;
+}
+
+.container {
+  max-width: 1040px;
+  min-width: 980px;
+
+  margin: 0 auto;
+
+  &.wide {
+    max-width: 1440px;
+  }
+
+  &.wider {
+    max-width: none;
+  }
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="user-comments-wrapper">
-    <div class="user-comments">
+    <div class="user-comments container">
       <h2 class="section-title">他们正在使用</h2>
       <div class="comment">
         {{ comments[currentCommentIdx].comment }}
@@ -95,8 +95,6 @@ export default {
   align-items: center;
 
   width: 100%;
-  max-width: 1040px;
-  min-width: 980px;
   margin: 0 auto;
 
   background-color: #fafafa;
